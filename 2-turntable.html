@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Hero 2 · Turntable</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cabin:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="shared.css">
+<style>
+/* 2 · Turntable
+   A top-down table spread cut into a giant circle, framed in a white ring and a
+   marble ring, turning very slowly like a lazy Susan. The whole circle is always in
+   view top to bottom; on phones and laptops it runs off the right edge on purpose. */
+.hero { position: relative; overflow: hidden; background: var(--wash); padding: var(--nav-h) 0 2.8rem; }
+.grid { display: grid; }
+
+/* the plate */
+.plate-col { position: relative; height: calc(88vw + 1.6rem); order: -1; }   /* phones and tablets: plate first */
+.plate {
+    position: absolute; top: 1.6rem; left: 22vw;
+    width: 88vw; aspect-ratio: 1;
+    border-radius: 50%; padding: 12px;
+    background: var(--marble-band);
+    box-shadow: 0 30px 70px rgba(10, 9, 8, 0.22);
+}
+.disc { width: 100%; height: 100%; border-radius: 50%; overflow: hidden; border: 9px solid #fff; background: #fff; }
+.disc img { width: 100%; height: 100%; object-fit: cover; animation: spin 140s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.copy { position: relative; z-index: 2; padding-top: 1.4rem; }
+.kicker { font-family: var(--font-display); color: var(--green); font-size: clamp(1.4rem, 5vw, 2rem); letter-spacing: 0.16em; margin: 0; line-height: 1; }
+h1 { margin: 0.3rem 0 0.9rem; font-family: var(--font-display); font-weight: 400; line-height: 0.84; font-size: clamp(4.2rem, 19vw, 8.6rem); color: var(--black); }
+h1 .ac { color: var(--green); }
+.lede { margin: 0; max-width: 30rem; font-size: clamp(1.05rem, 3.4vw, 1.25rem); color: var(--muted-warm); }
+.btn-row { margin-top: 1.5rem; }
+
+/* tablets: a smaller plate so the copy is not pushed too far down */
+@media (min-width: 600px) and (max-width: 999px) {
+    .plate-col { height: calc(68vw + 2rem); }
+    .plate { width: 68vw; left: 50%; top: 2rem; transform: translateX(-50%); }   /* centred: a right-hugging plate left a hole on the left */
+    .copy { text-align: center; padding-top: 2rem; }
+    .copy .lede { margin: 0 auto; }
+    .copy .btn-row { justify-content: center; }
+    h1 { font-size: 7.4rem; }
+}
+
+/* laptops and up: copy left, plate right, sized to the screen height so the whole
+   circle is visible; it bleeds past the right edge on laptops, sits inside on big screens */
+@media (min-width: 1000px) {
+    .hero { padding: var(--nav-h) 0 0; }
+    .grid { grid-template-columns: 0.85fr 1.15fr; align-items: center; min-height: min(calc(100vh - var(--nav-h)), 860px); }
+    .grid > * { min-width: 0; }
+    .copy { padding: 3rem 0; }
+    h1 { font-size: clamp(6rem, 8vw, 9rem); }
+    .plate-col { order: 0; height: min(calc(100vh - var(--nav-h) - 5rem), 760px); min-height: 560px; }
+    .plate { top: 50%; left: 6%; width: auto; height: 100%; transform: translateY(-50%); padding: 16px; }
+    .disc { border-width: 12px; }
+}
+</style>
+</head>
+<body>
+<header class="nav">
+    <div class="wrap">
+        <a class="nav-logo" href="#"><img src="images/logo-gold.webp" alt="Hummus &amp; Garlic" width="1000" height="659"></a>
+        <ul class="nav-links"><li><a href="#">Home</a></li><li><a href="#">Menu</a></li><li><a href="#">Catering</a></li><li><a href="#">Gift Cards</a></li><li><a href="#">Join the Team</a></li><li><a href="#">Contact</a></li></ul>
+        <div class="nav-right"><a class="nav-order" href="#"><i class="fas fa-bag-shopping" aria-hidden="true"></i> Order Online</a><span class="nav-burger" aria-hidden="true"><span></span><span></span><span></span></span></div>
+    </div>
+</header>
+
+<main>
+<section class="hero" aria-labelledby="h1">
+    <div class="wrap grid">
+        <div class="copy">
+            <p class="kicker in d1">Welcome to HG</p>
+            <h1 id="h1" class="in d2">Hummus &amp;<br><span class="ac">Garlic.</span></h1>
+            <p class="lede in d3">Hummus is the foundation, garlic is the soul. Bowls, shawarma, wings and sides.</p>
+            <div class="btn-row in d4">
+                <a class="btn btn-green" href="#">Order Online</a>
+                <a class="btn btn-white" href="#"><i class="fas fa-utensils" aria-hidden="true"></i> View Menu</a>
+            </div>
+        </div>
+        <div class="plate-col"><div class="plate"><div class="disc"><img src="images/site/lifestyle/menu-hero-2.webp" width="900" height="1125" fetchpriority="high" alt="Bowls, loaded fries, shawarma and brownies spread across a table, seen from above"></div></div></div>
+    </div>
+</section>
+<section class="next"><small>What are you craving?</small><h2>Pick your lane.</h2></section>
+</main>
+<span class="proto-tag">2 · Turntable</span>
+<script>if (window.self !== window.top) document.documentElement.classList.add('is-embedded');</script>
+</body>
+</html>

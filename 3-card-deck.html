@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Hero 3 · Card Deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cabin:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="shared.css">
+<style>
+/* 3 · Card Deck
+   A fanned hand of photo cards in the "Pick your lane" style (white border, rounded,
+   label inside). Every few seconds the front card flicks off and slides to the back,
+   so the hero keeps showing a new part of the menu. Tap or use the arrows to deal the
+   next one; hover pauses; reduced motion keeps the hand still. */
+.hero { position: relative; overflow: hidden; background: var(--wash); padding: calc(var(--nav-h) + 1.4rem) 0 2.6rem; }
+.grid { display: grid; gap: 1rem; }
+.kicker { font-family: var(--font-display); color: var(--green); font-size: clamp(1.4rem, 5vw, 2rem); letter-spacing: 0.16em; margin: 0; line-height: 1; }
+h1 { margin: 0.3rem 0 0.9rem; font-family: var(--font-display); font-weight: 400; line-height: 0.84; font-size: clamp(4.2rem, 19vw, 8.6rem); color: var(--black); }
+h1 .ac { color: var(--green); }
+.lede { margin: 0; max-width: 30rem; font-size: clamp(1.05rem, 3.4vw, 1.25rem); color: var(--muted-warm); }
+.btn-row { margin-top: 1.5rem; }
+
+.table { position: relative; order: -1; }
+.deck { position: relative; width: min(50vw, 300px); aspect-ratio: 4 / 5; margin: 1.2rem auto 2.2rem; cursor: pointer; }
+.card {
+    position: absolute; inset: 0; display: block;
+    border-radius: 22px; overflow: hidden; border: 5px solid #fff; background: #ddd;
+    box-shadow: 0 22px 44px rgba(10, 9, 8, 0.22);
+    color: #fff; text-decoration: none;
+    transition: transform 0.75s var(--ease), opacity 0.4s ease;
+}
+.card img { width: 100%; height: 100%; object-fit: cover; }
+.card::after { content: ""; position: absolute; inset: auto 0 0 0; height: 40%; background: linear-gradient(transparent, rgba(10, 9, 8, 0.5)); }
+.card span { position: absolute; z-index: 1; left: 0.9rem; right: 0.9rem; bottom: 0.8rem; display: flex; align-items: center; justify-content: space-between; font-family: var(--font-display); font-size: 1.9rem; letter-spacing: 0.05em; line-height: 1; }
+.card span i { width: 34px; height: 34px; border-radius: 50%; background: #fff; color: var(--green); display: grid; place-items: center; font-size: 0.9rem; }
+.card[data-pos="0"] { z-index: 5; transform: rotate(-2deg); }
+.card[data-pos="1"] { z-index: 4; transform: translate(26%, 3%) rotate(7deg) scale(0.92); }
+.card[data-pos="2"] { z-index: 3; transform: translate(-26%, 4%) rotate(-9deg) scale(0.9); }
+.card[data-pos="3"] { z-index: 2; transform: translate(46%, 8%) rotate(14deg) scale(0.82); }
+.card[data-pos="4"] { z-index: 1; transform: translate(-46%, 9%) rotate(-15deg) scale(0.8); }
+.card span { transition: opacity 0.3s ease; }
+.card:not([data-pos="0"]) span { opacity: 0; }   /* only the front card is labelled */
+.card.is-flick { z-index: 6; transform: translate(70%, -6%) rotate(22deg); opacity: 0; }
+
+.deal { display: flex; justify-content: center; gap: 0.6rem; }
+.deal button { width: 46px; height: 46px; border-radius: 50%; border: 2px solid var(--black); background: #fff; color: var(--black); cursor: pointer; font-size: 1rem; }
+.deal button:hover { background: var(--marble); color: #fff; border-color: transparent; }
+.deal button:focus-visible { outline: 3px solid var(--green); outline-offset: 2px; }
+
+@media (min-width: 600px) and (max-width: 999px) {
+    .copy { text-align: center; }
+    .copy .lede { margin: 0 auto; }
+    .copy .btn-row { justify-content: center; }
+    h1 { font-size: 7.4rem; }
+}
+@media (min-width: 1000px) {
+    .hero { padding: var(--nav-h) 0 0; min-height: min(100vh, 900px); display: grid; align-items: center; }
+    .grid { grid-template-columns: 0.95fr 1.05fr; align-items: center; gap: 3rem; padding-block: 3rem 4rem; }   /* padding-block keeps the .wrap side gutters */
+    .table { order: 0; }
+    h1 { font-size: clamp(6.2rem, 8.6vw, 9.4rem); }
+    .grid > * { min-width: 0; }   /* the fanned cards must never widen the grid */
+    .deck { width: clamp(260px, 23vw, 400px); margin: 0 auto 2.6rem; }
+}
+</style>
+</head>
+<body>
+<header class="nav">
+    <div class="wrap">
+        <a class="nav-logo" href="#"><img src="images/logo-gold.webp" alt="Hummus &amp; Garlic" width="1000" height="659"></a>
+        <ul class="nav-links"><li><a href="#">Home</a></li><li><a href="#">Menu</a></li><li><a href="#">Catering</a></li><li><a href="#">Gift Cards</a></li><li><a href="#">Join the Team</a></li><li><a href="#">Contact</a></li></ul>
+        <div class="nav-right"><a class="nav-order" href="#"><i class="fas fa-bag-shopping" aria-hidden="true"></i> Order Online</a><span class="nav-burger" aria-hidden="true"><span></span><span></span><span></span></span></div>
+    </div>
+</header>
+
+<main>
+<section class="hero" aria-labelledby="h1">
+    <div class="wrap grid">
+        <div class="copy">
+            <p class="kicker in d1">Welcome to HG</p>
+            <h1 id="h1" class="in d2">Hummus &amp;<br><span class="ac">Garlic.</span></h1>
+            <p class="lede in d3">Hummus is the foundation, garlic is the soul. Bowls, shawarma, wings and sides.</p>
+            <div class="btn-row in d4">
+                <a class="btn btn-green" href="#">Order Online</a>
+                <a class="btn btn-white" href="#"><i class="fas fa-utensils" aria-hidden="true"></i> View Menu</a>
+            </div>
+        </div>
+        <div class="table in d3">
+            <div class="deck" id="deck">
+                <a class="card" href="#" data-pos="0"><img src="images/site/lifestyle/bowl-fork.webp" width="800" height="1000" fetchpriority="high" alt=""><span>Bowls <i class="fas fa-arrow-right" aria-hidden="true"></i></span></a>
+                <a class="card" href="#" data-pos="1"><img src="images/site/lifestyle/feature-shawarma.webp" width="900" height="1125" alt=""><span>Shawarma <i class="fas fa-arrow-right" aria-hidden="true"></i></span></a>
+                <a class="card" href="#" data-pos="2"><img src="images/site/lifestyle/fries-fork.webp" width="800" height="1000" alt=""><span>Sides <i class="fas fa-arrow-right" aria-hidden="true"></i></span></a>
+                <a class="card" href="#" data-pos="3"><img src="images/site/lifestyle/dessert-hand.webp" width="800" height="1000" alt=""><span>Desserts <i class="fas fa-arrow-right" aria-hidden="true"></i></span></a>
+                <a class="card" href="#" data-pos="4"><img src="images/site/lifestyle/cater-stack.webp" width="800" height="1000" alt=""><span>Catering <i class="fas fa-arrow-right" aria-hidden="true"></i></span></a>
+            </div>
+            <div class="deal">
+                <button type="button" id="prev" aria-label="Previous card"><i class="fas fa-arrow-left" aria-hidden="true"></i></button>
+                <button type="button" id="next" aria-label="Next card"><i class="fas fa-arrow-right" aria-hidden="true"></i></button>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="next"><small>What are you craving?</small><h2>Pick your lane.</h2></section>
+</main>
+<span class="proto-tag">3 · Card Deck</span>
+<script>
+if (window.self !== window.top) document.documentElement.classList.add('is-embedded');
+const deck = document.getElementById('deck');
+const cards = [...deck.querySelectorAll('.card')];
+const n = cards.length;
+let busy = false;
+// Only the front card is a link target; the rest are skipped by keyboard and screen readers.
+function sync() { cards.forEach(c => { const front = c.dataset.pos === '0'; c.tabIndex = front ? 0 : -1; c.setAttribute('aria-hidden', !front); }); }
+function next() {
+    if (busy) return; busy = true;
+    const front = cards.find(c => c.dataset.pos === '0');
+    front.classList.add('is-flick');
+    setTimeout(() => {
+        cards.forEach(c => { c.dataset.pos = (+c.dataset.pos + n - 1) % n; });
+        front.classList.remove('is-flick');
+        sync(); busy = false;
+    }, 380);
+}
+function prev() { cards.forEach(c => { c.dataset.pos = (+c.dataset.pos + 1) % n; }); sync(); }
+document.getElementById('next').addEventListener('click', next);
+document.getElementById('prev').addEventListener('click', prev);
+deck.addEventListener('click', e => { if (!e.target.closest('.card[data-pos="0"]')) { e.preventDefault(); next(); } });
+sync();
+let paused = false;
+deck.addEventListener('pointerenter', () => paused = true);
+deck.addEventListener('pointerleave', () => paused = false);
+if (!matchMedia('(prefers-reduced-motion: reduce)').matches) setInterval(() => { if (!paused && !document.hidden) next(); }, 3600);
+</script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Hero 4 · Arch Window</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cabin:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="shared.css">
+<style>
+/* 4 · Arch Window
+   A tall Mediterranean arch with a white frame and a marble arch offset behind it.
+   Inside, shoot photos cross-fade with a slow push-in. The menu words under the arch
+   are tabs: they show which photo is up and switch to it on tap. */
+.hero { position: relative; overflow: hidden; background: var(--wash); padding: calc(var(--nav-h) + 1.6rem) 0 2.8rem; }
+.grid { display: grid; gap: 1.8rem; }
+.grid > * { min-width: 0; }
+
+.window { justify-self: center; width: min(78vw, 380px); }
+.arch { position: relative; aspect-ratio: 4 / 5.4; }
+.arch::before {                    /* marble arch behind, offset for depth */
+    content: ""; position: absolute; inset: 0; transform: translate(14px, 14px);
+    border-radius: 999px 999px 22px 22px; background: var(--marble-band);
+}
+.frame {
+    position: absolute; inset: 0; overflow: hidden;
+    border-radius: 999px 999px 22px 22px; border: 8px solid #fff; background: #ddd;
+    box-shadow: 0 26px 50px rgba(10, 9, 8, 0.2);
+}
+.slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1.1s ease; }
+.slide img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.02); }
+.slide.is-on { opacity: 1; }
+.slide.is-on img { animation: push 6s ease-out forwards; }
+@keyframes push { to { transform: scale(1.1); } }
+
+.tabs {   /* one line always: wider than the arch, centred under it */
+    display: flex; flex-wrap: nowrap; justify-content: center; gap: 0.75rem;
+    width: max-content; max-width: calc(100vw - 2 * var(--gutter));
+    margin: 1.6rem 0 0 50%; transform: translateX(-50%); padding: 0;
+}
+.tabs button {
+    position: relative; padding: 0.35rem 0.1rem; border: 0; background: none; cursor: pointer;
+    font-family: var(--font-display); font-size: clamp(1.1rem, 4.6vw, 1.4rem); letter-spacing: 0.06em; color: rgba(10, 9, 8, 0.38);
+    transition: color 0.3s ease;
+}
+.tabs button::after { content: ""; position: absolute; left: 0; right: 100%; bottom: 0.15rem; height: 3px; background: var(--green); transition: right 0.4s var(--ease); }
+.tabs button[aria-selected="true"] { color: var(--black); }
+.tabs button[aria-selected="true"]::after { right: 0; }
+.tabs button:focus-visible { outline: 3px solid var(--green); outline-offset: 2px; border-radius: 4px; }
+
+.copy { text-align: center; }
+.kicker { font-family: var(--font-display); color: var(--green); font-size: clamp(1.4rem, 5vw, 2rem); letter-spacing: 0.16em; margin: 0; line-height: 1; }
+h1 { margin: 0.3rem 0 0.9rem; font-family: var(--font-display); font-weight: 400; line-height: 0.84; font-size: clamp(4.2rem, 19vw, 7.4rem); color: var(--black); }
+h1 .ac { color: var(--green); }
+.lede { margin: 0 auto; max-width: 30rem; font-size: clamp(1.05rem, 3.4vw, 1.25rem); color: var(--muted-warm); }
+.btn-row { margin-top: 1.5rem; justify-content: center; }
+
+@media (min-width: 600px) and (max-width: 999px) { .window { width: min(56vw, 400px); } }
+
+@media (min-width: 1000px) {
+    .hero { padding: var(--nav-h) 0 0; }
+    .grid { grid-template-columns: 1fr 1fr; align-items: center; gap: 3rem; min-height: min(calc(100vh - var(--nav-h)), 880px); padding-block: 3rem; }
+    .copy { text-align: left; order: -1; }
+    .lede { margin: 0; }
+    .btn-row { justify-content: flex-start; }
+    h1 { font-size: clamp(6rem, 8vw, 9rem); }
+    .window { width: min(30vw, 440px); }
+    .arch { max-height: calc(100vh - var(--nav-h) - 11rem); min-height: 480px; margin: 0 auto; aspect-ratio: auto; height: calc(min(30vw, 440px) * 1.35); }
+}
+</style>
+</head>
+<body>
+<header class="nav">
+    <div class="wrap">
+        <a class="nav-logo" href="#"><img src="images/logo-gold.webp" alt="Hummus &amp; Garlic" width="1000" height="659"></a>
+        <ul class="nav-links"><li><a href="#">Home</a></li><li><a href="#">Menu</a></li><li><a href="#">Catering</a></li><li><a href="#">Gift Cards</a></li><li><a href="#">Join the Team</a></li><li><a href="#">Contact</a></li></ul>
+        <div class="nav-right"><a class="nav-order" href="#"><i class="fas fa-bag-shopping" aria-hidden="true"></i> Order Online</a><span class="nav-burger" aria-hidden="true"><span></span><span></span><span></span></span></div>
+    </div>
+</header>
+
+<main>
+<section class="hero" aria-labelledby="h1">
+    <div class="wrap grid">
+        <div class="window in d2">
+            <div class="arch">
+                <div class="frame" id="frame">
+                    <div class="slide is-on" role="tabpanel" id="s0"><img src="images/site/lifestyle/feature-bowls.webp" width="900" height="1125" fetchpriority="high" alt="A chicken bowl lifted from the table"></div>
+                    <div class="slide" role="tabpanel" id="s1"><img src="images/site/lifestyle/feature-shawarma.webp" width="900" height="1125" alt="Two shawarma wraps held up"></div>
+                    <div class="slide" role="tabpanel" id="s2"><img src="images/site/lifestyle/fries-fork.webp" width="800" height="1000" alt="Loaded fries on a fork"></div>
+                    <div class="slide" role="tabpanel" id="s3"><img src="images/site/lifestyle/parfait-spoon.webp" width="800" height="1000" alt="A spoonful of banana parfait"></div>
+                    <div class="slide" role="tabpanel" id="s4"><img src="images/site/lifestyle/cheers.webp" width="800" height="1000" alt="Two lemonades raised over the table"></div>
+                </div>
+            </div>
+            <div class="tabs" role="tablist" aria-label="Menu highlights">
+                <button role="tab" aria-selected="true" aria-controls="s0">Bowls</button>
+                <button role="tab" aria-selected="false" aria-controls="s1">Shawarma</button>
+                <button role="tab" aria-selected="false" aria-controls="s2">Sides</button>
+                <button role="tab" aria-selected="false" aria-controls="s3">Desserts</button>
+                <button role="tab" aria-selected="false" aria-controls="s4">Drinks</button>
+            </div>
+        </div>
+        <div class="copy">
+            <p class="kicker in d1">Welcome to HG</p>
+            <h1 id="h1" class="in d2">Hummus &amp;<br><span class="ac">Garlic.</span></h1>
+            <p class="lede in d3">Hummus is the foundation, garlic is the soul. Bowls, shawarma, wings and sides.</p>
+            <div class="btn-row in d4">
+                <a class="btn btn-green" href="#">Order Online</a>
+                <a class="btn btn-white" href="#"><i class="fas fa-utensils" aria-hidden="true"></i> View Menu</a>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="next"><small>What are you craving?</small><h2>Pick your lane.</h2></section>
+</main>
+<span class="proto-tag">4 · Arch Window</span>
+<script>
+if (window.self !== window.top) document.documentElement.classList.add('is-embedded');
+const tabs = [...document.querySelectorAll('[role="tab"]')], slides = [...document.querySelectorAll('.slide')];
+let i = 0, timer;
+function show(n) {
+    i = (n + slides.length) % slides.length;
+    slides.forEach((s, k) => s.classList.toggle('is-on', k === i));
+    tabs.forEach((t, k) => { t.setAttribute('aria-selected', k === i); t.tabIndex = k === i ? 0 : -1; });
+}
+function auto() { clearInterval(timer); if (!matchMedia('(prefers-reduced-motion: reduce)').matches) timer = setInterval(() => { if (!document.hidden) show(i + 1); }, 4500); }
+tabs.forEach((t, k) => {
+    t.addEventListener('click', () => { show(k); auto(); });
+    t.addEventListener('keydown', e => { if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { show(i + (e.key === 'ArrowRight' ? 1 : -1)); tabs[i].focus(); auto(); } });
+});
+document.getElementById('frame').addEventListener('pointerenter', () => clearInterval(timer));
+document.getElementById('frame').addEventListener('pointerleave', auto);
+show(0); auto();
+</script>
+</body>
+</html>

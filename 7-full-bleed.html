@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Hero 7 · Full Bleed</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cabin:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="shared.css">
+<style>
+/* 7 · Full Bleed
+   One dark shoot photo is the whole hero. Its background is a black shirt, so white
+   type sits on it with no overlay. The photo melts into a backdrop of the same near-black
+   (sampled from the photo), so wide screens read as one continuous image.
+   Type is white, with GARLIC. in black on a white block: no green on the photo. */
+.hero { position: relative; overflow: hidden; isolation: isolate; background: #0b0b0c; color: #fff; min-height: max(700px, 100svh); }
+/* phones and tablets: copy on the black at the top, the bowl fills the lower part and
+   rises out of the black, so no text ever sits on food */
+.photo { position: absolute; left: 0; right: 0; bottom: 0; height: 62%; z-index: -1; }
+.photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 35%; animation: kb 14s ease-out both; }
+@keyframes kb { from { transform: scale(1.12); } to { transform: scale(1); } }
+.photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(#0b0b0c 0%, rgba(11, 11, 12, 0.5) 16%, transparent 34%); }
+
+.copy { padding: calc(var(--nav-h) + 1.6rem) var(--gutter) 0; }
+.kicker { font-family: var(--font-display); font-size: clamp(1.4rem, 5vw, 2rem); letter-spacing: 0.16em; margin: 0; line-height: 1; }
+h1 { margin: 0.3rem 0 0.9rem; font-family: var(--font-display); font-weight: 400; line-height: 0.86; font-size: clamp(4.4rem, 20vw, 9rem); }
+h1 .blk { display: inline-block; margin-top: 0.06em; padding: 0.04em 0.14em 0; background: #fff; color: var(--black); }
+.lede { margin: 0; max-width: 28rem; font-size: clamp(1.05rem, 3.4vw, 1.25rem); color: rgba(255, 255, 255, 0.92); }
+.btn-row { margin-top: 1.4rem; }
+.btn-white { box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35); }
+@media (min-width: 600px) and (max-width: 999px) { .hero { min-height: 1080px; } .photo { height: 58%; } }
+
+@media (min-width: 1000px) {
+    .hero { min-height: min(100vh, 900px); display: grid; align-items: center; }
+    /* the photo sits on the right and fades into the backdrop on its left edge */
+    .photo { left: 38%; top: 0; height: auto; }
+    .photo img { object-position: 50% 62%; }
+    .photo::after { inset: 0; background: linear-gradient(90deg, #0b0b0c 0%, rgba(11, 11, 12, 0.6) 18%, transparent 42%); }
+    .copy { width: 100%; max-width: var(--max); margin: 0 auto; padding: var(--nav-h) var(--gutter) 0; }
+    .copy > * { max-width: 560px; }
+    h1 { font-size: clamp(6.4rem, 8.4vw, 9.6rem); }
+}
+</style>
+</head>
+<body>
+<header class="nav">
+    <div class="wrap">
+        <a class="nav-logo" href="#"><img src="images/logo-gold.webp" alt="Hummus &amp; Garlic" width="1000" height="659"></a>
+        <ul class="nav-links"><li><a href="#">Home</a></li><li><a href="#">Menu</a></li><li><a href="#">Catering</a></li><li><a href="#">Gift Cards</a></li><li><a href="#">Join the Team</a></li><li><a href="#">Contact</a></li></ul>
+        <div class="nav-right"><a class="nav-order" href="#"><i class="fas fa-bag-shopping" aria-hidden="true"></i> Order Online</a><span class="nav-burger" aria-hidden="true"><span></span><span></span><span></span></span></div>
+    </div>
+</header>
+
+<main>
+<section class="hero" aria-labelledby="h1">
+    <div class="photo"><img src="img/bowl-fork-1080.webp" srcset="img/bowl-fork-640.webp 640w, img/bowl-fork-1080.webp 1080w" sizes="(min-width: 1000px) 62vw, 100vw" width="1080" height="1620" fetchpriority="high" alt="A fork lifting grilled chicken from a Hummus &amp; Garlic bowl"></div>
+    <div class="copy">
+        <p class="kicker in d1">Welcome to HG</p>
+        <h1 id="h1" class="in d2">Hummus &amp;<br><span class="blk">Garlic.</span></h1>
+        <p class="lede in d3">Hummus is the foundation, garlic is the soul. Bowls, shawarma, wings and sides.</p>
+        <div class="btn-row in d4">
+            <a class="btn btn-green" href="#">Order Online</a>
+            <a class="btn btn-white" href="#"><i class="fas fa-utensils" aria-hidden="true"></i> View Menu</a>
+        </div>
+    </div>
+</section>
+<section class="next"><small>What are you craving?</small><h2>Pick your lane.</h2></section>
+</main>
+<span class="proto-tag">7 · Full Bleed</span>
+<script>if (window.self !== window.top) document.documentElement.classList.add('is-embedded');</script>
+</body>
+</html>

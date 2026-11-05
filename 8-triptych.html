@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Hero 8 · Triptych</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cabin:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="shared.css">
+<style>
+/* 8 · Triptych
+   Three tall shoot photos edge to edge, each panel cross-fading to a new shot on its own
+   beat. A black strip along the bottom carries the white headline and the buttons, so
+   no type ever sits on a photo. Phones get one panel. */
+.hero { background: var(--black); color: #fff; padding-top: var(--nav-h); }
+.panels { display: grid; grid-template-columns: 1fr; height: 48svh; min-height: 340px; }   /* phones: buttons stay on the first screen */
+.panel { position: relative; overflow: hidden; }
+.panel + .panel { border-left: 3px solid var(--black); }
+.panel img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.2s ease; }
+.panel img.is-on { opacity: 1; animation: drift 9s ease-out both; }
+@keyframes drift { from { transform: scale(1.08); } to { transform: scale(1); } }
+.panel:nth-child(n+2) { display: none; }
+
+.strip { padding: 1.6rem var(--gutter) 2rem; }
+.kicker { font-family: var(--font-display); font-size: clamp(1.3rem, 5vw, 1.8rem); letter-spacing: 0.16em; margin: 0; line-height: 1; color: rgba(255, 255, 255, 0.75); }
+h1 { margin: 0.25rem 0 0.7rem; font-family: var(--font-display); font-weight: 400; line-height: 0.88; font-size: clamp(3.6rem, 16vw, 7rem); }
+.lede { margin: 0; max-width: 30rem; font-size: clamp(1.02rem, 3.2vw, 1.15rem); color: rgba(255, 255, 255, 0.85); }
+.btn-row { margin-top: 1.4rem; }
+
+@media (min-width: 700px) {
+    .panels { grid-template-columns: repeat(3, 1fr); height: 56vh; min-height: 420px; }
+    .panel:nth-child(n+2) { display: block; }
+}
+@media (min-width: 1000px) {
+    .panels { height: min(calc(100vh - var(--nav-h) - 250px), 640px); min-height: 420px; }   /* photos + strip fit one screen */
+    .strip { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 2rem; width: 100%; max-width: var(--max); margin: 0 auto; padding: 1.8rem var(--gutter) 2rem; }
+    h1 { font-size: clamp(5rem, 6.6vw, 7.4rem); margin-bottom: 0.4rem; }
+    h1 br { display: none; }
+    .btn-row { margin: 0; flex-wrap: nowrap; }
+}
+</style>
+</head>
+<body>
+<header class="nav">
+    <div class="wrap">
+        <a class="nav-logo" href="#"><img src="images/logo-gold.webp" alt="Hummus &amp; Garlic" width="1000" height="659"></a>
+        <ul class="nav-links"><li><a href="#">Home</a></li><li><a href="#">Menu</a></li><li><a href="#">Catering</a></li><li><a href="#">Gift Cards</a></li><li><a href="#">Join the Team</a></li><li><a href="#">Contact</a></li></ul>
+        <div class="nav-right"><a class="nav-order" href="#"><i class="fas fa-bag-shopping" aria-hidden="true"></i> Order Online</a><span class="nav-burger" aria-hidden="true"><span></span><span></span><span></span></span></div>
+    </div>
+</header>
+
+<main>
+<section class="hero" aria-labelledby="h1">
+    <div class="panels" aria-hidden="true">
+        <div class="panel" data-shots="bowl-fork,fries-hold,wraps"></div>
+        <div class="panel" data-shots="wraps,bowl-lift,drinks"></div>
+        <div class="panel" data-shots="parfait,fries-fork,wrap"></div>
+    </div>
+    <div class="strip">
+        <div>
+            <p class="kicker in d1">Welcome to HG</p>
+            <h1 id="h1" class="in d2">Hummus &amp;<br> Garlic.</h1>
+            <p class="lede in d3">Hummus is the foundation, garlic is the soul. Bowls, shawarma, wings and sides.</p>
+        </div>
+        <div class="btn-row in d4">
+            <a class="btn btn-green" href="#">Order Online</a>
+            <a class="btn btn-white" href="#"><i class="fas fa-utensils" aria-hidden="true"></i> View Menu</a>
+        </div>
+    </div>
+</section>
+<section class="next"><small>What are you craving?</small><h2>Pick your lane.</h2></section>
+</main>
+<span class="proto-tag">8 · Triptych</span>
+<script>
+if (window.self !== window.top) document.documentElement.classList.add('is-embedded');
+// Each panel holds its own shots; panels change one at a time so the strip never flashes all at once.
+const panels = [...document.querySelectorAll('.panel')];
+panels.forEach((p, k) => {
+    p.dataset.shots.split(',').forEach((s, i) => {
+        p.insertAdjacentHTML('beforeend', `<img src="img/${s}-640.webp" srcset="img/${s}-640.webp 640w, img/${s}-1080.webp 1080w" sizes="(min-width: 700px) 34vw, 100vw" width="640" height="960" ${k === 0 && i === 0 ? 'fetchpriority="high"' : ''} alt="" class="${i === 0 ? 'is-on' : ''}">`);
+    });
+});
+// phones show only the first panel, so give it every shot
+if (!matchMedia('(min-width: 700px)').matches) {
+    const first = panels[0];
+    panels.slice(1).forEach(p => p.querySelectorAll('img').forEach(i => { i.classList.remove('is-on'); first.appendChild(i); }));
+}
+let turn = 0;
+function step() {
+    const visible = panels.filter(p => p.offsetParent !== null);
+    const p = visible[turn % visible.length]; turn++;
+    const imgs = [...p.querySelectorAll('img')], on = imgs.findIndex(i => i.classList.contains('is-on'));
+    imgs[on].classList.remove('is-on'); imgs[(on + 1) % imgs.length].classList.add('is-on');
+}
+if (!matchMedia('(prefers-reduced-motion: reduce)').matches) setInterval(() => { if (!document.hidden) step(); }, 2600);
+</script>
+</body>
+</html>

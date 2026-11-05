@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>HG Hero Prototypes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+:root { --green: #11733a; --ink: #1a1815; --wash: #f5f2eb; --line: #e7e2d6; }
+* { box-sizing: border-box; }
+body { margin: 0; color: var(--ink); background: var(--wash); font-family: 'Bebas Neue', sans-serif; }
+.proto { max-width: 1500px; margin: 0 auto; padding: 1.6rem 16px 2rem; border-bottom: 1px solid var(--line); }
+.proto h2 { font-weight: 400; font-size: 2.4rem; line-height: 1; margin: 0 0 0.8rem; letter-spacing: 0.02em; }
+.proto h2 a { color: inherit; text-decoration: none; }
+.proto h2 a:hover { color: var(--green); }
+.proto h2 b { color: var(--green); font-weight: 400; }
+.frames { display: grid; grid-template-columns: 1fr; gap: 1rem; align-items: start; }
+@media (min-width: 900px) { .frames { grid-template-columns: 1fr 300px; } }
+.screen { position: relative; overflow: hidden; border-radius: 10px; background: #ddd; box-shadow: 0 10px 30px rgba(10, 9, 8, 0.12); }
+.screen iframe { position: absolute; top: 0; left: 0; border: 0; transform-origin: 0 0; }
+.desk { aspect-ratio: 1440 / 900; }
+.phone { aspect-ratio: 390 / 800; }
+</style>
+</head>
+<body>
+<main id="list"></main>
+<script>
+const protos = [
+    ['1-photo-wall', 'Photo Wall'], ['2-turntable', 'Turntable'], ['3-card-deck', 'Card Deck'],
+    ['4-arch-window', 'Arch Window'], ['5-polaroid-table', 'Polaroid Table'], ['6-flip-mosaic', 'Flip Mosaic'],
+    ['7-full-bleed', 'Full Bleed'], ['8-triptych', 'Triptych'], ['9-black-box', 'Black Box'],
+];
+const list = document.getElementById('list');
+protos.forEach(([f, name], i) => list.insertAdjacentHTML('beforeend', `
+<section class="proto">
+    <h2><a href="${f}.html" target="_blank" rel="noopener"><b>${i + 1}</b> · ${name}</a></h2>
+    <div class="frames">
+        <div class="screen desk" data-w="1440" data-h="900"><iframe src="${f}.html" title="${name} desktop" loading="lazy"></iframe></div>
+        <div class="screen phone" data-w="390" data-h="800"><iframe src="${f}.html" title="${name} phone" loading="lazy"></iframe></div>
+    </div>
+</section>`));
+// render each preview at real device width, scaled to fit
+function fit() {
+    document.querySelectorAll('.screen').forEach(s => {
+        const w = +s.dataset.w, h = +s.dataset.h, f = s.querySelector('iframe'), k = s.clientWidth / w;
+        f.style.width = w + 'px'; f.style.height = h + 'px'; f.style.transform = `scale(${k})`;
+    });
+}
+addEventListener('resize', fit); fit();
+</script>
+</body>
+</html>

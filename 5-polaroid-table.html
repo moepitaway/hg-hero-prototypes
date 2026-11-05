@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Hero 5 · Polaroid Table</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cabin:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="shared.css">
+<style>
+/* 5 · Polaroid Table
+   Photo prints tossed onto the cream around a centred headline, each with a white
+   border and a caption on the thick bottom edge. They drop in one by one on load
+   and straighten up and lift when you hover them. Every print links into the menu. */
+.hero { position: relative; overflow: hidden; background: var(--wash); padding: calc(var(--nav-h) + 1.8rem) 0 2.6rem; }
+.copy { position: relative; z-index: 3; text-align: center; padding: 0 var(--gutter); max-width: 640px; margin: 0 auto; }
+.kicker { font-family: var(--font-display); color: var(--green); font-size: clamp(1.4rem, 5vw, 2rem); letter-spacing: 0.16em; margin: 0; line-height: 1; }
+h1 { margin: 0.3rem 0 0.9rem; font-family: var(--font-display); font-weight: 400; line-height: 0.84; font-size: clamp(4.2rem, 19vw, 8.6rem); color: var(--black); }
+h1 .ac { color: var(--green); }
+.lede { margin: 0 auto; max-width: 30rem; font-size: clamp(1.05rem, 3.4vw, 1.25rem); color: var(--muted-warm); }
+.btn-row { margin-top: 1.5rem; justify-content: center; }
+
+/* prints */
+.print {
+    position: absolute; z-index: 1; display: block; width: var(--w, 150px);
+    padding: 8px 8px 0; background: #fff; border-radius: 6px;
+    box-shadow: 0 16px 34px rgba(10, 9, 8, 0.2);
+    text-decoration: none; color: var(--black);
+    transform: rotate(var(--r, 0deg));
+    transition: transform 0.45s var(--ease), box-shadow 0.45s ease;
+    animation: toss 0.9s var(--ease) both; animation-delay: var(--d, 0s);
+}
+.print img { width: 100%; height: auto; aspect-ratio: 4 / 4.4; object-fit: cover; border-radius: 3px; }
+.print span { display: block; padding: 0.45rem 0 0.5rem; text-align: center; font-family: var(--font-display); font-size: 1.15rem; letter-spacing: 0.06em; line-height: 1; }
+.print:hover, .print:focus-visible { z-index: 4; transform: rotate(0deg) translateY(-8px) scale(1.05); box-shadow: 0 26px 46px rgba(10, 9, 8, 0.28); }
+.print:focus-visible { outline: 3px solid var(--green); outline-offset: 3px; }
+@keyframes toss { from { opacity: 0; transform: translateY(-60px) rotate(calc(var(--r, 0deg) * 2.5)) scale(1.08); } to { opacity: 1; transform: rotate(var(--r, 0deg)); } }
+
+/* phones and tablets: a scattered pile under the copy */
+.pile { position: relative; height: 112vw; max-height: 560px; margin-top: 1.6rem; }
+.pile .print { --w: 44vw; }
+.p1 { --r: -8deg; left: 5%;  top: 2%;  --d: 0.35s; }
+.p2 { --r: 6deg;  right: 3%; top: 6%;  --d: 0.45s; }
+.p3 { --r: 4deg;  left: 8%;  top: 50%; --d: 0.55s; }
+.p4 { --r: -6deg; right: 6%; top: 47%; --d: 0.65s; }
+.p5, .p6 { display: none; }
+@media (min-width: 600px) and (max-width: 1099px) {
+    .pile { height: 330px; max-height: none; }
+    .pile .print { --w: 200px; }
+    .p1 { left: 4%; top: 6%; } .p2 { left: 27%; right: auto; top: 0; } .p3 { left: auto; right: 27%; top: 8%; } .p4 { right: 4%; top: 2%; }
+}
+
+/* laptops and up: prints around the headline, three each side, clear of the text */
+@media (min-width: 1100px) {
+    .hero { min-height: min(100vh, 900px); display: grid; align-items: center; padding: calc(var(--nav-h) + 3rem) 0 4rem; }
+    .copy { max-width: 600px; }
+    h1 { font-size: clamp(6.4rem, 8vw, 9rem); }
+    .pile { position: absolute; inset: var(--nav-h) max(0px, calc((100vw - 1560px) / 2)) 0; height: auto; max-height: none; margin: 0; }   /* keep prints near the copy on very wide screens */
+    .pile .print { --w: clamp(150px, 12vw, 205px); }
+    .p5, .p6 { display: block; }
+    .p1 { left: 3%;  top: 8%;  --r: -9deg; }
+    .p3 { left: 15%; top: 37%; --r: 5deg; }   /* inner column, offset so no print covers another's caption */
+    .p5 { left: 2%;  top: auto; bottom: 5%; --r: -4deg; --d: 0.75s; }   /* bottom row anchored to the bottom so captions never clip */
+    .p2 { right: 4%; left: auto; top: 6%;  --r: 7deg; }
+    .p4 { right: 15%; top: 36%; --r: -6deg; }
+    .p6 { right: 3%; top: auto; bottom: 6%; --r: 5deg; --d: 0.85s; }
+}
+</style>
+</head>
+<body>
+<header class="nav">
+    <div class="wrap">
+        <a class="nav-logo" href="#"><img src="images/logo-gold.webp" alt="Hummus &amp; Garlic" width="1000" height="659"></a>
+        <ul class="nav-links"><li><a href="#">Home</a></li><li><a href="#">Menu</a></li><li><a href="#">Catering</a></li><li><a href="#">Gift Cards</a></li><li><a href="#">Join the Team</a></li><li><a href="#">Contact</a></li></ul>
+        <div class="nav-right"><a class="nav-order" href="#"><i class="fas fa-bag-shopping" aria-hidden="true"></i> Order Online</a><span class="nav-burger" aria-hidden="true"><span></span><span></span><span></span></span></div>
+    </div>
+</header>
+
+<main>
+<section class="hero" aria-labelledby="h1">
+    <div class="copy">
+        <p class="kicker in d1">Welcome to HG</p>
+        <h1 id="h1" class="in d2">Hummus &amp;<br><span class="ac">Garlic.</span></h1>
+        <p class="lede in d3">Hummus is the foundation, garlic is the soul. Bowls, shawarma, wings and sides.</p>
+        <div class="btn-row in d4">
+            <a class="btn btn-green" href="#">Order Online</a>
+            <a class="btn btn-white" href="#"><i class="fas fa-utensils" aria-hidden="true"></i> View Menu</a>
+        </div>
+    </div>
+    <div class="pile">
+        <a class="print p1" href="#"><img src="images/site/lifestyle/bowl-fork@half.webp" srcset="images/site/lifestyle/bowl-fork@half.webp 400w, /images/site/lifestyle/bowl-fork.webp 800w" sizes="(min-width: 600px) 220px, 44vw" width="400" height="500" alt=""><span>Bowls</span></a>
+        <a class="print p2" href="#"><img src="images/site/lifestyle/feature-shawarma@half.webp" srcset="images/site/lifestyle/feature-shawarma@half.webp 450w, /images/site/lifestyle/feature-shawarma.webp 900w" sizes="(min-width: 600px) 220px, 44vw" width="450" height="562" alt=""><span>Shawarma</span></a>
+        <a class="print p3" href="#"><img src="images/site/lifestyle/fries-fork@half.webp" srcset="images/site/lifestyle/fries-fork@half.webp 400w, /images/site/lifestyle/fries-fork.webp 800w" sizes="(min-width: 600px) 220px, 44vw" width="400" height="500" alt=""><span>Sides</span></a>
+        <a class="print p4" href="#"><img src="images/site/lifestyle/dessert-hand@half.webp" srcset="images/site/lifestyle/dessert-hand@half.webp 400w, /images/site/lifestyle/dessert-hand.webp 800w" sizes="(min-width: 600px) 220px, 44vw" width="400" height="500" alt=""><span>Desserts</span></a>
+        <a class="print p5" href="#"><img src="images/site/lifestyle/cheers@half.webp" srcset="images/site/lifestyle/cheers@half.webp 400w, /images/site/lifestyle/cheers.webp 800w" sizes="220px" width="400" height="500" alt=""><span>Drinks</span></a>
+        <a class="print p6" href="#"><img src="images/site/lifestyle/cater-stack@half.webp" srcset="images/site/lifestyle/cater-stack@half.webp 400w, /images/site/lifestyle/cater-stack.webp 800w" sizes="220px" width="400" height="500" alt=""><span>Catering</span></a>
+    </div>
+</section>
+<section class="next"><small>What are you craving?</small><h2>Pick your lane.</h2></section>
+</main>
+<span class="proto-tag">5 · Polaroid Table</span>
+<script>if (window.self !== window.top) document.documentElement.classList.add('is-embedded');</script>
+</body>
+</html>

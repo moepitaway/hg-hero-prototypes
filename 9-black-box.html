@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Hero 9 · Black Box</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cabin:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="shared.css">
+<style>
+/* 9 · Black Box
+   A bright, full-bleed spread with no overlay at all. The copy lives in a solid black
+   panel set into the bottom corner, white type with a thin white rule, so it reads on
+   any photo. The photo pans slowly so the table feels alive. */
+.hero { position: relative; overflow: hidden; isolation: isolate; min-height: max(660px, 100svh); padding-top: var(--nav-h); display: flex; align-items: flex-end; }
+.photo { position: absolute; inset: var(--nav-h) 0 0 0; z-index: -1; }
+.photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; animation: pan 24s ease-in-out infinite alternate; }
+@keyframes pan { from { transform: scale(1.08) translateX(-2%); } to { transform: scale(1.08) translateX(2%); } }
+
+.box {
+    position: relative; margin: 0 var(--gutter) var(--gutter); width: 100%;
+    background: var(--black); color: #fff;
+    padding: 1.5rem 1.3rem 1.4rem; border-radius: 4px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+}
+.kicker { display: flex; align-items: center; gap: 0.8rem; font-family: var(--font-display); font-size: clamp(1.25rem, 4.6vw, 1.7rem); letter-spacing: 0.16em; margin: 0; line-height: 1; }
+.kicker::after { content: ""; flex: 1; height: 2px; background: #fff; opacity: 0.85; }
+h1 { margin: 0.4rem 0 0.7rem; font-family: var(--font-display); font-weight: 400; line-height: 0.86; font-size: clamp(3.8rem, 17vw, 7.6rem); }
+.lede { margin: 0; font-size: clamp(1.02rem, 3.2vw, 1.15rem); color: rgba(255, 255, 255, 0.85); }
+.btn-row { margin-top: 1.3rem; }
+
+@media (min-width: 700px) {
+    .box { width: auto; max-width: 560px; padding: 2rem 2rem 1.9rem; margin: 0 0 2rem var(--gutter); }
+}
+@media (min-width: 1000px) {
+    .hero { min-height: min(100vh, 900px); }
+    .photo img { object-position: 50% 62%; }
+    .box { margin-left: max(var(--gutter), calc((100vw - var(--max)) / 2 + var(--gutter))); margin-bottom: 3rem; max-width: 600px; padding: 2.4rem 2.4rem 2.2rem; }
+    h1 { font-size: clamp(6rem, 7.4vw, 8.4rem); }
+}
+</style>
+</head>
+<body>
+<header class="nav">
+    <div class="wrap">
+        <a class="nav-logo" href="#"><img src="images/logo-gold.webp" alt="Hummus &amp; Garlic" width="1000" height="659"></a>
+        <ul class="nav-links"><li><a href="#">Home</a></li><li><a href="#">Menu</a></li><li><a href="#">Catering</a></li><li><a href="#">Gift Cards</a></li><li><a href="#">Join the Team</a></li><li><a href="#">Contact</a></li></ul>
+        <div class="nav-right"><a class="nav-order" href="#"><i class="fas fa-bag-shopping" aria-hidden="true"></i> Order Online</a><span class="nav-burger" aria-hidden="true"><span></span><span></span><span></span></span></div>
+    </div>
+</header>
+
+<main>
+<section class="hero" aria-labelledby="h1">
+    <div class="photo">
+        <picture>
+            <source media="(min-width: 1000px)" srcset="img/spread-1200.webp 1200w, img/spread-2048.webp 2048w" sizes="100vw">
+            <img src="img/fries-hold-1080.webp" srcset="img/fries-hold-640.webp 640w, img/fries-hold-1080.webp 1080w" sizes="100vw" width="1080" height="1620" fetchpriority="high" alt="Bowls, a shawarma, loaded fries and lemonades on a marble table">
+        </picture>
+    </div>
+    <div class="box">
+        <p class="kicker in d1">Welcome to HG</p>
+        <h1 id="h1" class="in d2">Hummus &amp;<br>Garlic.</h1>
+        <p class="lede in d3">Hummus is the foundation, garlic is the soul. Bowls, shawarma, wings and sides.</p>
+        <div class="btn-row in d4">
+            <a class="btn btn-green" href="#">Order Online</a>
+            <a class="btn btn-white" href="#"><i class="fas fa-utensils" aria-hidden="true"></i> View Menu</a>
+        </div>
+    </div>
+</section>
+<section class="next"><small>What are you craving?</small><h2>Pick your lane.</h2></section>
+</main>
+<span class="proto-tag">9 · Black Box</span>
+<script>if (window.self !== window.top) document.documentElement.classList.add('is-embedded');</script>
+</body>
+</html>

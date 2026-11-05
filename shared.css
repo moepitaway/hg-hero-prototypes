@@ -1,0 +1,88 @@
+/* =========================================================
+   HG hero prototypes, round 2 — shared base
+   Same nav bar, one green (#11733a), marble buttons with the white inset frame
+   and slow sway, Bebas Neue + Cabin. Images come from /images on the site.
+   ========================================================= */
+:root {
+    --green: #11733a;
+    --black: #0a0908;
+    --ink: #1a1815;
+    --muted-warm: #6b5f4f;
+    --paper: #fdfcfa;
+    --wash: #f5f2eb;
+    --line-warm: #e7e2d6;
+    --marble: var(--green) url("images/site/bg-green-marble-btn.webp") 0% 50% / 260% auto no-repeat;
+    --marble-band: var(--green) url("images/site/bg-green-marble.webp") center / cover no-repeat;
+    --font-display: 'Bebas Neue', Impact, sans-serif;
+    --font-body: 'Cabin', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --nav-h: 64px;
+    --gutter: 16px;
+    --max: 1320px;
+    --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+@media (min-width: 992px) { :root { --nav-h: 80px; --gutter: 40px; } }
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; font-family: var(--font-body); color: var(--ink); background: #fff; line-height: 1.5; overflow-x: hidden; }
+img { display: block; max-width: 100%; }
+a { color: inherit; }
+.wrap { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+
+/* ---------- nav: the live site's black bar ---------- */
+.nav { position: fixed; inset: 0 0 auto 0; z-index: 50; height: var(--nav-h); background: rgba(10, 9, 8, 0.97); box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3); }
+.nav .wrap { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.nav-logo img { height: 42px; width: auto; }
+@media (min-width: 992px) { .nav-logo img { height: 62px; } }
+.nav-links { display: none; list-style: none; margin: 0; padding: 0; gap: 1.6rem; }
+.nav-links a { color: #fff; text-decoration: none; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; }
+.nav-right { display: flex; align-items: center; gap: 0.9rem; }
+.nav-order { display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.55rem 0.9rem; border-radius: 10px; background: #fff; color: var(--green); text-decoration: none; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+.nav-burger { width: 26px; height: 18px; display: grid; align-content: space-between; }
+.nav-burger span { height: 2px; background: #fff; border-radius: 2px; }
+@media (min-width: 1100px) { .nav-links { display: flex; } .nav-burger { display: none; } }
+
+/* ---------- buttons ---------- */
+.btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem;
+    min-height: 56px; padding: 0.95rem 1.9rem;
+    border-radius: 10px; border: 2px solid transparent;
+    font-family: var(--font-body); font-size: 1.1rem; font-weight: 700;
+    letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none;
+    cursor: pointer; transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease, color 0.25s ease;
+}
+.btn-green, .btn-white:hover {
+    background: var(--marble); color: #fff;
+    outline: 2px solid #fff; outline-offset: -5px;
+    animation: marble-sway 12s ease-in-out infinite alternate;
+    box-shadow: 0 12px 30px rgba(10, 9, 8, 0.22);
+}
+.btn-white { background: #fff; color: var(--black); box-shadow: 0 12px 30px rgba(10, 9, 8, 0.14); }
+/* on green: solid white button, and a white outline one */
+.btn-light { background: #fff; color: var(--green); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.22); }
+.btn-line { background: transparent; color: #fff; border-color: #fff; }
+.btn-line:hover { background: #fff; color: var(--black); }
+.btn:hover { transform: translateY(-3px); }
+.btn:focus-visible { outline: 3px solid var(--black); outline-offset: 3px; }
+@keyframes marble-sway { from { background-position: 0% 35%; } to { background-position: 100% 65%; } }
+.btn-row { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+@media (max-width: 559px) { .btn-row .btn { flex: 1 1 100%; } }
+
+/* ---------- entrance ---------- */
+@keyframes rise { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
+@keyframes drop { from { opacity: 0; transform: translateY(-40px) scale(0.96); } to { opacity: 1; transform: none; } }
+.in { opacity: 0; animation: rise 0.9s var(--ease) forwards; }
+.d1 { animation-delay: 0.08s; } .d2 { animation-delay: 0.18s; } .d3 { animation-delay: 0.28s; } .d4 { animation-delay: 0.4s; } .d5 { animation-delay: 0.55s; }
+
+/* ---------- context strip: top of "Pick your lane" ---------- */
+.next { background: var(--marble-band); color: #fff; text-align: center; padding: 2.4rem var(--gutter) 2.6rem; }
+.next small { display: inline-block; padding: 0.45em 1em; border-radius: 999px; background: #fff; color: var(--green); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; }
+.next h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(2.4rem, 8vw, 4.4rem); margin: 0.6rem 0 0; line-height: 1; }
+
+.proto-tag { position: fixed; right: 12px; bottom: 12px; z-index: 60; padding: 0.4rem 0.7rem; border-radius: 8px; background: rgba(10, 9, 8, 0.82); color: #fff; font: 600 0.72rem/1 var(--font-body); letter-spacing: 0.08em; text-transform: uppercase; }
+.is-embedded .proto-tag { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .in { opacity: 1; }
+}

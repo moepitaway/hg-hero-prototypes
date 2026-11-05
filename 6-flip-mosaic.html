@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Hero 6 · Flip Mosaic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cabin:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="shared.css">
+<style>
+/* 6 · Flip Mosaic
+   A square grid of photo tiles with an HG marble tile in the middle. Every couple of
+   seconds one tile flips over like a card to show another shot from the pool, so the
+   grid is never quite the same. Reduced motion keeps it still. */
+.hero { position: relative; overflow: hidden; background: var(--wash); padding: calc(var(--nav-h) + 1.6rem) 0 2.8rem; }
+.grid { display: grid; gap: 1.8rem; }
+.grid > * { min-width: 0; }
+.kicker { font-family: var(--font-display); color: var(--green); font-size: clamp(1.4rem, 5vw, 2rem); letter-spacing: 0.16em; margin: 0; line-height: 1; }
+h1 { margin: 0.3rem 0 0.9rem; font-family: var(--font-display); font-weight: 400; line-height: 0.84; font-size: clamp(4.2rem, 19vw, 8.6rem); color: var(--black); }
+h1 .ac { color: var(--green); }
+.lede { margin: 0; max-width: 30rem; font-size: clamp(1.05rem, 3.4vw, 1.25rem); color: var(--muted-warm); }
+.btn-row { margin-top: 1.5rem; }
+
+.mosaic { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.55rem; width: 100%; max-width: 620px; margin: 0 auto; }
+.tile { position: relative; aspect-ratio: 1; perspective: 900px; }
+.flip { position: absolute; inset: 0; transform-style: preserve-3d; transition: transform 0.9s var(--ease); }
+.tile.is-flipped .flip { transform: rotateY(180deg); }
+.face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; border-radius: 14px; overflow: hidden; border: 4px solid #fff; background: #ddd; box-shadow: 0 10px 22px rgba(10, 9, 8, 0.14); }
+.face.back { transform: rotateY(180deg); }
+.face img { width: 100%; height: 100%; object-fit: cover; }
+.hg {
+    border-radius: 14px; border: 4px solid #fff; height: 100%;
+    background: var(--marble-band); color: #fff;
+    display: grid; place-items: center; text-align: center;
+    box-shadow: 0 10px 22px rgba(10, 9, 8, 0.18);
+}
+.hg b { display: block; font-family: var(--font-display); font-weight: 400; font-size: clamp(3.4rem, 15vw, 5.6rem); line-height: 0.8; }
+.hg small { display: block; margin-top: 0.35rem; font-family: var(--font-display); font-size: clamp(0.8rem, 1.9vw, 1.1rem); letter-spacing: 0.14em; white-space: nowrap; }
+
+@media (max-width: 599px) { .hg small { display: none; } }   /* tile is too small for the line on phones */
+@media (min-width: 600px) and (max-width: 999px) {
+    .copy { text-align: center; }
+    .lede { margin: 0 auto; }
+    .btn-row { justify-content: center; }
+    h1 { font-size: 7.4rem; }
+    .mosaic { gap: 0.8rem; max-width: 480px; }
+}
+@media (min-width: 1000px) {
+    .hero { padding: var(--nav-h) 0 0; }
+    .grid { grid-template-columns: 0.9fr 1.1fr; align-items: center; gap: 3.5rem; min-height: min(calc(100vh - var(--nav-h)), 860px); padding-block: 3rem; }
+    h1 { font-size: clamp(6rem, 8vw, 9rem); }
+    .mosaic { max-width: min(600px, calc(100vh - var(--nav-h) - 6rem)); gap: 0.8rem; }
+    .face, .hg { border-radius: 18px; border-width: 5px; }
+    .hg b { font-size: clamp(4.4rem, 6vw, 6.4rem); }
+}
+</style>
+</head>
+<body>
+<header class="nav">
+    <div class="wrap">
+        <a class="nav-logo" href="#"><img src="images/logo-gold.webp" alt="Hummus &amp; Garlic" width="1000" height="659"></a>
+        <ul class="nav-links"><li><a href="#">Home</a></li><li><a href="#">Menu</a></li><li><a href="#">Catering</a></li><li><a href="#">Gift Cards</a></li><li><a href="#">Join the Team</a></li><li><a href="#">Contact</a></li></ul>
+        <div class="nav-right"><a class="nav-order" href="#"><i class="fas fa-bag-shopping" aria-hidden="true"></i> Order Online</a><span class="nav-burger" aria-hidden="true"><span></span><span></span><span></span></span></div>
+    </div>
+</header>
+
+<main>
+<section class="hero" aria-labelledby="h1">
+    <div class="wrap grid">
+        <div class="copy">
+            <p class="kicker in d1">Welcome to HG</p>
+            <h1 id="h1" class="in d2">Hummus &amp;<br><span class="ac">Garlic.</span></h1>
+            <p class="lede in d3">Hummus is the foundation, garlic is the soul. Bowls, shawarma, wings and sides.</p>
+            <div class="btn-row in d4">
+                <a class="btn btn-green" href="#">Order Online</a>
+                <a class="btn btn-white" href="#"><i class="fas fa-utensils" aria-hidden="true"></i> View Menu</a>
+            </div>
+        </div>
+        <div class="mosaic in d3" id="mosaic" role="img" aria-label="Photos of Hummus &amp; Garlic food and guests"></div>
+    </div>
+</section>
+<section class="next"><small>What are you craving?</small><h2>Pick your lane.</h2></section>
+</main>
+<span class="proto-tag">6 · Flip Mosaic</span>
+<script>
+if (window.self !== window.top) document.documentElement.classList.add('is-embedded');
+// 8 photo tiles around a fixed HG tile in the centre (index 4). The pool is larger than
+// the grid, so each flip brings in a shot that is not already showing.
+const b = 'images/site/lifestyle/';
+const pool = ['bowl-fork', 'feature-shawarma', 'cheers', 'fries-fork', 'parfait-spoon', 'pita-table', 'feature-bowls', 'dessert-hand',
+              'bag-wraps', 'menu-hero-1', 'giftcard-bowls', 'table-spread', 'cater-stack', 'feature-sides'];
+const img = f => `<img src="${b}${f}@half.webp" srcset="${b}${f}@half.webp 400w, ${b}${f}.webp 800w" sizes="(min-width: 1000px) 200px, 31vw" width="400" height="500" decoding="async" alt="">`;
+const mosaic = document.getElementById('mosaic');
+const showing = pool.slice(0, 8);
+let next = 8;
+const tiles = [];
+for (let k = 0, p = 0; k < 9; k++) {
+    const t = document.createElement('div'); t.className = 'tile';
+    if (k === 4) t.innerHTML = '<div class="hg"><div><b>HG</b><small>Hummus &amp; Garlic</small></div></div>';
+    else { t.innerHTML = `<div class="flip"><div class="face front">${img(showing[p])}</div><div class="face back"></div></div>`; t.dataset.slot = p++; tiles.push(t); }
+    mosaic.appendChild(t);
+}
+// preload the rest of the pool so a flip never shows an empty face
+pool.slice(8).forEach(f => { const i = new Image(); i.src = `${b}${f}@half.webp`; });
+let last = -1;
+function flipOne() {
+    let k; do { k = Math.floor(Math.random() * tiles.length); } while (k === last); last = k;
+    const t = tiles[k], slot = +t.dataset.slot, hidden = t.classList.contains('is-flipped') ? '.front' : '.back';
+    const incoming = pool[next % pool.length]; next++;
+    if (showing.includes(incoming)) return flipOne();
+    t.querySelector(hidden).innerHTML = img(incoming);
+    showing[slot] = incoming;
+    t.classList.toggle('is-flipped');
+}
+if (!matchMedia('(prefers-reduced-motion: reduce)').matches) setInterval(() => { if (!document.hidden) flipOne(); }, 2200);
+</script>
+</body>
+</html>
