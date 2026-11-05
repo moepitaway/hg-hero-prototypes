@@ -19,7 +19,7 @@
 .hero { position: relative; overflow: hidden; isolation: isolate; background: #0b0b0c; color: #fff; min-height: max(700px, 100svh); }
 /* phones and tablets: copy on the black at the top, the bowl fills the lower part and
    rises out of the black, so no text ever sits on food */
-.photo { position: absolute; left: 0; right: 0; bottom: 0; height: 62%; z-index: -1; }
+.photo { position: absolute; left: 0; right: 0; bottom: 0; height: 62%; z-index: -1; overflow: hidden; }   /* clip the zoom-in so it never spills past the fade */
 .photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 35%; animation: kb 14s ease-out both; }
 @keyframes kb { from { transform: scale(1.12); } to { transform: scale(1); } }
 .photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(#0b0b0c 0%, rgba(11, 11, 12, 0.5) 16%, transparent 34%); }
