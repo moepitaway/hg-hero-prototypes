@@ -29,9 +29,15 @@ body { margin: 0; color: var(--ink); background: var(--wash); font-family: 'Beba
 <main id="list"></main>
 <script>
 const protos = [
-    ['1-photo-wall', 'Photo Wall'], ['2-turntable', 'Turntable'], ['3-card-deck', 'Card Deck'],
-    ['4-arch-window', 'Arch Window'], ['5-polaroid-table', 'Polaroid Table'], ['6-flip-mosaic', 'Flip Mosaic'],
-    ['7-full-bleed', 'Full Bleed'], ['8-triptych', 'Triptych'], ['9-black-box', 'Black Box'],
+    ['1-black-box', 'Black Box'],
+    ['2-full-bleed', 'Full Bleed'],
+    ['3-triptych', 'Triptych'],
+    ['4-photo-wall', 'Photo Wall'],
+    ['5-turntable', 'Turntable'],
+    ['6-card-deck', 'Card Deck'],
+    ['7-arch-window', 'Arch Window'],
+    ['8-polaroid-table', 'Polaroid Table'],
+    ['9-flip-mosaic', 'Flip Mosaic'],
 ];
 const list = document.getElementById('list');
 protos.forEach(([f, name], i) => list.insertAdjacentHTML('beforeend', `

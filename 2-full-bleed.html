@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Hero 7 · Full Bleed</title>
+<title>Hero 2 · Full Bleed</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cabin:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="shared.css">
 <style>
-/* 7 · Full Bleed
+/* 2 · Full Bleed
    One dark shoot photo is the whole hero. Its background is a black shirt, so white
    type sits on it with no overlay. The photo melts into a backdrop of the same near-black
    (sampled from the photo), so wide screens read as one continuous image.
@@ -22,7 +22,9 @@
 .photo { position: absolute; left: 0; right: 0; bottom: 0; height: 62%; z-index: -1; overflow: hidden; }   /* clip the zoom-in so it never spills past the fade */
 .photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 35%; animation: kb 14s ease-out both; }
 @keyframes kb { from { transform: scale(1.12); } to { transform: scale(1); } }
-.photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(#0b0b0c 0%, rgba(11, 11, 12, 0.5) 16%, transparent 34%); }
+/* the photo itself fades to transparent at its edge (a mask, not a dark overlay), so there is
+   no photo edge left to show as a hairline at any screen width */
+.photo { -webkit-mask-image: linear-gradient(transparent 0%, rgba(0, 0, 0, 0.5) 16%, #000 34%); mask-image: linear-gradient(transparent 0%, rgba(0, 0, 0, 0.5) 16%, #000 34%); }
 
 .copy { padding: calc(var(--nav-h) + 1.6rem) var(--gutter) 0; }
 .kicker { font-family: var(--font-display); font-size: clamp(1.4rem, 5vw, 2rem); letter-spacing: 0.16em; margin: 0; line-height: 1; }
@@ -38,7 +40,7 @@ h1 .blk { display: inline-block; margin-top: 0.06em; padding: 0.04em 0.14em 0; b
     /* the photo sits on the right and fades into the backdrop on its left edge */
     .photo { left: 38%; top: 0; height: auto; }
     .photo img { object-position: 50% 62%; }
-    .photo::after { inset: 0; background: linear-gradient(90deg, #0b0b0c 0%, rgba(11, 11, 12, 0.6) 18%, transparent 42%); }
+    .photo { -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.4) 18%, #000 42%); mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.4) 18%, #000 42%); }
     .copy { width: 100%; max-width: var(--max); margin: 0 auto; padding: var(--nav-h) var(--gutter) 0; }
     .copy > * { max-width: 560px; }
     h1 { font-size: clamp(6.4rem, 8.4vw, 9.6rem); }
@@ -69,7 +71,7 @@ h1 .blk { display: inline-block; margin-top: 0.06em; padding: 0.04em 0.14em 0; b
 </section>
 <section class="next"><small>What are you craving?</small><h2>Pick your lane.</h2></section>
 </main>
-<span class="proto-tag">7 · Full Bleed</span>
+<span class="proto-tag">2 · Full Bleed</span>
 <script>if (window.self !== window.top) document.documentElement.classList.add('is-embedded');</script>
 </body>
 </html>
